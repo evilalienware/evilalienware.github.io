@@ -1,28 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IR Sender</title>
+    <title>My IR Remote</title>
+    <style>
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
-    <button onclick="sendIRCode()">Send IR Code</button>
 
-    <script>
-        function sendIRCode() {
-            var irCode = {
-                protocol: "Samsung32",
-                address: "07 00 00 00",
-                command: "02 00 00 00"
-            };
-            
-            // This is a placeholder. In a real scenario, this function would communicate 
-            // with some kind of service or API that can send the IR code using your device's hardware.
-            // Example:
-            // fetch('/sendIR', { method: 'POST', body: JSON.stringify(irCode) });
-            
-            alert('Sending IR Code...');
-        }
-    </script>
+<button onclick="playAudio('URL_TO_POWER_AUDIO_FILE.mp3')">Power</button>
+<button onclick="playAudio('https://github.com/notLe0nard/IR-Flip/raw/main/samsung-power.wav')">Volume Up</button>
+<!-- Add more buttons as needed -->
+
+<script>
+    function playAudio(url) {
+        new Audio(url).play();
+    }
+</script>
+
 </body>
 </html>
