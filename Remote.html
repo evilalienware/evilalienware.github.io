@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My IR Remote</title>
+    <style>
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<button onclick="playAudio('URL_TO_POWER_AUDIO_FILE.mp3')">Power</button>
+<button onclick="playAudio('URL_TO_VOLUME_UP_AUDIO_FILE.mp3')">Volume Up</button>
+<!-- Add more buttons as needed -->
+
+<script>
+    function playAudio(url) {
+        new Audio(url).play();
+    }
+</script>
+
+</body>
+</html>
