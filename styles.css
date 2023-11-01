@@ -1,16 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meme Page</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <audio id="memeAudio" loop>
-        <source src="memeSound.mp3" type="audio/mpeg">
-    </audio>
-    <img id="memeImage" src="memeImage.jpg" alt="Meme Image">
-    <script src="script.js"></script>
-</body>
-</html>
+/* styles.css */
+
+body {
+    margin: 0;
+    overflow: hidden;
+    animation: rainbow 5s linear infinite;
+}
+
+@mixin rainbow-colors {
+    0% { background: red; }
+    14% { background: orange; }
+    28% { background: yellow; }
+    42% { background: green; }
+    57% { background: blue; }
+    71% { background: indigo; }
+    85% { background: violet; }
+    100% { background: red; }
+}
+
+#memeImage {
+    display: block;
+    max-width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
