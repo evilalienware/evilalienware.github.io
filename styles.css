@@ -1,12 +1,10 @@
-/* styles.css */
-
 body {
     margin: 0;
     overflow: hidden;
     animation: rainbow 5s linear infinite;
 }
 
-@mixin rainbow-colors {
+@keyframes rainbow {
     0% { background: red; }
     14% { background: orange; }
     28% { background: yellow; }
@@ -25,4 +23,14 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 10;
+}
+
+#startButton {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    padding: 10px 20px;
+    font-size: 20px;
 }
