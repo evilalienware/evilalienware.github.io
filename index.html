@@ -1,26 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My IR Remote</title>
-    <style>
-        button {
-            padding: 10px 20px;
-            margin: 10px;
-            font-size: 20px;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Web Proxy</title>
 </head>
 <body>
+    <h1>Simple Web Proxy</h1>
+    <input type="text" id="urlInput" placeholder="Enter URL" size="50">
+    <button onclick="loadURL()">Go</button>
+    <iframe id="proxyFrame" width="100%" height="600px"></iframe>
 
-<button onclick="playAudio('URL_TO_POWER_AUDIO_FILE.mp3')">Power</button>
-<button onclick="playAudio('https://github.com/notLe0nard/IR-Flip/raw/main/samsung-power.wav')">Volume Up</button>
-<!-- Add more buttons as needed -->
-
-<script>
-    function playAudio(url) {
-        new Audio(url).play();
-    }
-</script>
-
+    <script src="script.js"></script>
 </body>
 </html>
