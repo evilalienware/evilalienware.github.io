@@ -1,5 +1,3 @@
-// script.js
-
 function handleImage() {
     let input = document.getElementById('imageInput');
     let canvas = document.getElementById('canvas');
@@ -13,42 +11,24 @@ function handleImage() {
         img.src = e.target.result;
 
         img.onload = function() {
-            // Set canvas size to the image size
+            // Reduce the image size for more pronounced pixelation
+            let reducedWidth = img.width / 8;  
+            let reducedHeight = img.height / 8;
+
             canvas.width = img.width;
             canvas.height = img.height;
 
-            // Draw the image to the canvas
-            ctx.drawImage(img, 0, 0);
+            // Draw the image reduced
+            ctx.drawImage(img, 0, 0, reducedWidth, reducedHeight);
 
-            // Pixelate the image
-            let pixelSize = 8;  // Adjust for desired pixelation level
-            for (let y = 0; y < canvas.height; y += pixelSize) {
-                for (let x = 0; x < canvas.width; x += pixelSize) {
-                    let data = ctx.getImageData(x, y, pixelSize, pixelSize);
-                    let avg = averageColor(data);
-                    ctx.fillStyle = 'rgb(' + avg[0] + ',' + avg[1] + ',' + avg[2] + ')';
-                    ctx.fillRect(x, y, pixelSize, pixelSize);
-                }
+            // Scale it back up
+            let pixelatedImage = new Image();
+            pixelatedImage.src = canvas.toDataURL();
+            pixelatedImage.onload = function() {
+                ctx.drawImage(pixelatedImage, 0, 0, reducedWidth, reducedHeight, 0, 0, img.width, img.height);
             }
         }
     }
 
     reader.readAsDataURL(file);
-}
-
-function averageColor(data) {
-    let red = 0, green = 0, blue = 0;
-    let blockSize = data.width * data.height;
-    let pixels = data.data;
-
-    for (let i = 0; i < blockSize; i++) {
-        red += pixels[i * 4];
-        green += pixels[i * 4 + 1];
-        blue += pixels[i * 4 + 2];
-    }
-    red = Math.floor(red / blockSize);
-    green = Math.floor(green / blockSize);
-    blue = Math.floor(blue / blockSize);
-
-    return [red, green, blue];
 }
