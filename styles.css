@@ -1,36 +1,11 @@
 body {
-    margin: 0;
-    overflow: hidden;
-    animation: rainbow 5s linear infinite;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 50px;
 }
 
-@keyframes rainbow {
-    0% { background: red; }
-    14% { background: orange; }
-    28% { background: yellow; }
-    42% { background: green; }
-    57% { background: blue; }
-    71% { background: indigo; }
-    85% { background: violet; }
-    100% { background: red; }
-}
-
-#memeImage {
+canvas {
     display: block;
-    max-width: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-}
-
-#startButton {
-    position: absolute;
-    top: 80%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 20;
-    padding: 10px 20px;
-    font-size: 20px;
+    margin: 20px auto;
+    border: 2px solid #333;
 }
