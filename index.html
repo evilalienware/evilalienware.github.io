@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meme Page</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Pixelify Image</title>
 </head>
 <body>
-    <audio id="memeAudio" loop>
-        <source src="https://github.com/evilalienware/evilalienware.github.io/raw/main/Delinquent-Habits-Return-of-the-Tres.mp3" type="audio/mpeg">
-    </audio>
-    <img id="memeImage" src="https://www.reddit.com/media?url=https%3A%2F%2Fi.redd.it%2Fjbcj0uqbihg41.jpg" alt="Meme Image">
-    <button id="startButton" onclick="startMeme()">Start the meme!</button>
+    <h1>Pixelify Your Image!</h1>
+    <input type="file" id="imageInput" onchange="handleImage()">
+    <canvas id="canvas"></canvas>
+    
     <script src="script.js"></script>
 </body>
 </html>
