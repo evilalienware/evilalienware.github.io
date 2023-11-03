@@ -4,14 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pixelify</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Pixelify</h1>
+    <div class="dropzone" onclick="document.getElementById('imageInput').click();">
+        CLICK HERE TO UPLOAD<br>
+        YOUR BORING THUMBNAIL<br>
+        <span>(IMAGES MUST BE 1280 x 720 & UNDER 2MB)</span>
+        <input type="file" id="imageInput" onchange="handleImage()" accept="image/png, image/jpeg">
+    </div>
     <canvas id="canvas"></canvas>
-    <input type="file" id="imageInput" accept=".jpg, .jpeg, .png" onchange="handleImage()">
-    <p>Works with: JPG, JPEG, PNG</p>
+    <div class="footer">
+        Works with: PNG, JPEG
+    </div>
+    
     <script src="script.js"></script>
 </body>
 </html>
