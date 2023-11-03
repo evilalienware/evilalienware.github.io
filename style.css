@@ -1,40 +1,52 @@
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #1E90FF;  /* Similar color to the image provided */
-    color: white;
+    background-color: #e6e6e6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 h1 {
-    margin-top: 50px;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
-.dropzone {
-    width: 400px;
-    height: 250px;
-    border: 2px dashed white;
-    margin: 50px auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.upload-section {
+    text-align: center;
+    margin-bottom: 20px;
+    border: 2px dashed #00aaff;
+    padding: 30px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.dropzone span {
-    font-size: 12px;
-    margin-top: 20px;
+.upload-section:hover {
+    background-color: #f0f8ff;
 }
 
-input[type="file"] {
-    display: none;
+.upload-label {
+    font-size: 20px;
 }
 
-canvas {
+.file-types {
     display: block;
-    margin: 50px auto;
-    border: 2px solid white;
+    font-size: 16px;
+    color: #666;
+    margin-top: 10px;
 }
 
-.footer {
-    margin-top: 50px;
+.slider-section {
+    text-align: center;
+    margin-top: 20px;
 }
