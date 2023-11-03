@@ -1,29 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pixelify</title>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Righteous', cursive;
+            background-color: #00aced;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #canvas {
+            border: dashed 3px white;
+            margin-top: 20px;
+        }
+
+        label {
+            color: white;
+            font-size: 18px;
+        }
+
+        #sliderValue {
+            margin-left: 10px;
+            color: white;
+            font-size: 18px;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Pixelify</h1>
-    <div class="dropzone" onclick="document.getElementById('imageInput').click();">
-        CLICK HERE TO UPLOAD<br>
-        YOUR BORING THUMBNAIL<br>
-        <span>(IMAGES MUST BE 1280 x 720 & UNDER 2MB)</span>
-        <input type="file" id="imageInput" onchange="handleImage()" accept="image/png, image/jpeg">
-    </div>
-    <canvas id="canvas"></canvas>
+
+    <h1 style="color: white;">Pixelify</h1>
+
+    <canvas id="canvas" width="400" height="400"></canvas>
+
     <div style="text-align: center; margin-top: 20px;">
-    <label for="pixelationSlider">Pixelation Level: </label>
-    <input type="range" min="1" max="5" value="3" id="pixelationSlider">
-    <span id="sliderValue">3</span>
-</div>
-    <div class="footer">
-        Works with: PNG, JPEG
+        <label for="pixelationSlider">Pixelation Level: </label>
+        <input type="range" min="1" max="5" value="3" id="pixelationSlider">
+        <span id="sliderValue">3</span>
     </div>
-    
-    <script src="script.js"></script>
+
+    <div style="margin-top: 20px;">
+        <input type="file" id="imageInput" onchange="handleImage()">
+    </div>
+
+    <p style="color: white; margin-top: 20px;">Works with: PNG, JPG, JPEG</p>
+
+    <script>
+        function handleImage() {
+    let input = document.getElementById('imageInput');
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+
+    let file = input.files[0];
+    let reader = new FileReader();
+
+    reader.onload = function(e) {
+        let img = new Image();
+        img.src = e.target.result;
+
+        img.onload = function() {
+            const maxWidth = 1280; // Set the max width for the image
+            const maxHeight = 720; // Set the max height for the image
+
+            let width = img.width;
+            let height = img.height;
+
+            // Check if the image size exceeds the set dimensions
+            if (width > maxWidth) {
+                height = (maxWidth / width) * height;
+                width = maxWidth;
+            }
+
+            if (height > maxHeight) {
+                width = (maxHeight / height) * width;
+                height = maxHeight;
+            }
+
+            // Get pixelation level from slider
+            let pixelationLevel = document.getElementById('pixelationSlider').value;
+
+            canvas.width = width;
+            canvas.height = height;
+
+            // Draw and pixelate the image based on pixelation level
+            ctx.drawImage(img, 0, 0, width / (8 * pixelationLevel), height / (8 * pixelationLevel));
+            let pixelatedImage = new Image();
+            pixelatedImage.src = canvas.toDataURL();
+            pixelatedImage.onload = function() {
+                ctx.drawImage(pixelatedImage, 0, 0, width / (8 * pixelationLevel), height / (8 * pixelationLevel), 0, 0, width, height);
+            }
+        }
+    }
+
+    reader.readAsDataURL(file);
+}
+
+// Event to update slider value display when changed
+document.getElementById('pixelationSlider').addEventListener('input', function() {
+    document.getElementById('sliderValue').textContent = this.value;
+});
+
+    </script>
+
 </body>
+
 </html>
