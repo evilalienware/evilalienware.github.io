@@ -1,5 +1,3 @@
-// script.js
-
 function handleImage() {
     let input = document.getElementById('imageInput');
     let canvas = document.getElementById('canvas');
@@ -13,21 +11,32 @@ function handleImage() {
         img.src = e.target.result;
 
         img.onload = function() {
-            // Reduce the image size for more pronounced pixelation
-            let reducedWidth = img.width / 8;
-            let reducedHeight = img.height / 8;
+            const maxWidth = 1280; // Set the max width for the image
+            const maxHeight = 720; // Set the max height for the image
 
-            canvas.width = img.width;
-            canvas.height = img.height;
+            let width = img.width;
+            let height = img.height;
 
-            // Draw the image reduced
-            ctx.drawImage(img, 0, 0, reducedWidth, reducedHeight);
+            // Check if the image size exceeds the set dimensions
+            if (width > maxWidth) {
+                height = (maxWidth / width) * height;
+                width = maxWidth;
+            }
 
-            // Scale it back up
+            if (height > maxHeight) {
+                width = (maxHeight / height) * width;
+                height = maxHeight;
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+
+            // Draw and pixelate the image
+            ctx.drawImage(img, 0, 0, width / 8, height / 8);
             let pixelatedImage = new Image();
             pixelatedImage.src = canvas.toDataURL();
             pixelatedImage.onload = function() {
-                ctx.drawImage(pixelatedImage, 0, 0, reducedWidth, reducedHeight, 0, 0, img.width, img.height);
+                ctx.drawImage(pixelatedImage, 0, 0, width / 8, height / 8, 0, 0, width, height);
             }
         }
     }
