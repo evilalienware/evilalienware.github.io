@@ -45,10 +45,14 @@ function processImage() {
     canvas.height = height;
 
     ctx.drawImage(globalImage, 0, 0, width / (8 * pixelationLevel), height / (8 * pixelationLevel));
-    let pixelatedImage = new Image();
-    pixelatedImage.src = canvas.toDataURL();
-    pixelatedImage.onload = function() {
-        ctx.drawImage(pixelatedImage, 0, 0, width / (8 * pixelationLevel), height / (8 * pixelationLevel), 0, 0, width, height);
+
+    // Apply pixelation effect
+    for(let y = 0; y < height; y += pixelationLevel) {
+        for(let x = 0; x < width; x += pixelationLevel) {
+            const pixelColor = ctx.getImageData(x, y, 1, 1).data;
+            ctx.fillStyle = `rgba(${pixelColor[0]},${pixelColor[1]},${pixelColor[2]},${pixelColor[3] / 255})`;
+            ctx.fillRect(x, y, pixelationLevel, pixelationLevel);
+        }
     }
 }
 
