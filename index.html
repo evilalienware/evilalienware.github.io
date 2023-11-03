@@ -3,122 +3,29 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Pixelify</title>
-    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Righteous', cursive;
-            background-color: #00aced;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        #canvas {
-            border: dashed 3px white;
-            margin-top: 20px;
-        }
-
-        label {
-            color: white;
-            font-size: 18px;
-        }
-
-        #sliderValue {
-            margin-left: 10px;
-            color: white;
-            font-size: 18px;
-        }
-    </style>
 </head>
 
 <body>
-
-    <h1 style="color: white;">Pixelify</h1>
-
-    <canvas id="canvas" width="400" height="400"></canvas>
-
-    <div style="text-align: center; margin-top: 20px;">
-        <label for="pixelationSlider">Pixelation Level: </label>
-        <input type="range" min="1" max="5" value="3" id="pixelationSlider">
-        <span id="sliderValue">3</span>
+    <div class="container">
+        <h1>Pixelify</h1>
+        <div class="upload-section">
+            <label for="imageInput" class="upload-label">
+                CLICK HERE TO UPLOAD<br>
+                <span class="file-types">Must Be PNG, JPG...</span>
+            </label>
+            <input type="file" id="imageInput" accept=".png, .jpg, .jpeg" onchange="handleImage()" style="display: none;">
+        </div>
+        <canvas id="canvas" style="border: 1px solid #000; display: block; margin: 20px auto;"></canvas>
+        <div class="slider-section">
+            Pixelation Level: <span id="sliderValue">1</span>
+            <input type="range" id="pixelationSlider" min="1" max="5" value="1" style="width: 100%;">
+        </div>
     </div>
 
-    <div style="margin-top: 20px;">
-        <input type="file" id="imageInput" onchange="handleImage()">
-    </div>
-
-    <p style="color: white; margin-top: 20px;">Works with: PNG, JPG, JPEG</p>
-
-    <script>
-        let globalImage; // Store the loaded image globally so we can access it on slider change
-
-function handleImage() {
-    let input = document.getElementById('imageInput');
-    let canvas = document.getElementById('canvas');
-
-    let file = input.files[0];
-    let reader = new FileReader();
-
-    reader.onload = function(e) {
-        globalImage = new Image();
-        globalImage.src = e.target.result;
-
-        globalImage.onload = function() {
-            processImage(); // Process the image when it's loaded
-        }
-    }
-
-    reader.readAsDataURL(file);
-}
-
-function processImage() {
-    let canvas = document.getElementById('canvas');
-    let ctx = canvas.getContext('2d');
-
-    const maxWidth = 1280;
-    const maxHeight = 720;
-
-    let width = globalImage.width;
-    let height = globalImage.height;
-
-    if (width > maxWidth) {
-        height = (maxWidth / width) * height;
-        width = maxWidth;
-    }
-
-    if (height > maxHeight) {
-        width = (maxHeight / height) * width;
-        height = maxHeight;
-    }
-
-    let pixelationLevel = document.getElementById('pixelationSlider').value;
-
-    canvas.width = width;
-    canvas.height = height;
-
-    ctx.drawImage(globalImage, 0, 0, width / (8 * pixelationLevel), height / (8 * pixelationLevel));
-    let pixelatedImage = new Image();
-    pixelatedImage.src = canvas.toDataURL();
-    pixelatedImage.onload = function() {
-        ctx.drawImage(pixelatedImage, 0, 0, width / (8 * pixelationLevel), height / (8 * pixelationLevel), 0, 0, width, height);
-    }
-}
-
-document.getElementById('pixelationSlider').addEventListener('input', function() {
-    document.getElementById('sliderValue').textContent = this.value;
-    if (globalImage) {
-        processImage(); // Reprocess the image whenever the slider changes
-    }
-});
-
-    </script>
-
+    <script src="script.js"></script>
 </body>
 
 </html>
