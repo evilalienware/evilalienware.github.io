@@ -11,12 +11,13 @@ function handleImage() {
         img.src = e.target.result;
 
         img.onload = function() {
-            const maxWidth = 1280;
-            const maxHeight = 720;
+            const maxWidth = 1280; // Set the max width for the image
+            const maxHeight = 720; // Set the max height for the image
 
             let width = img.width;
             let height = img.height;
 
+            // Check if the image size exceeds the set dimensions
             if (width > maxWidth) {
                 height = (maxWidth / width) * height;
                 width = maxWidth;
@@ -27,18 +28,18 @@ function handleImage() {
                 height = maxHeight;
             }
 
+            // Get pixelation level from slider
+            let pixelationLevel = document.getElementById('pixelationSlider').value;
+
             canvas.width = width;
             canvas.height = height;
 
-            // Get the pixelation level from the slider
-            let pixelation = document.getElementById('pixelation').value;
-            let pixelSize = (width / 1280) * (11 - pixelation); // Adjust pixelation based on image width and slider value
-
-            ctx.drawImage(img, 0, 0, width * pixelSize, height * pixelSize);
+            // Draw and pixelate the image based on pixelation level
+            ctx.drawImage(img, 0, 0, width / (8 * pixelationLevel), height / (8 * pixelationLevel));
             let pixelatedImage = new Image();
             pixelatedImage.src = canvas.toDataURL();
             pixelatedImage.onload = function() {
-                ctx.drawImage(pixelatedImage, 0, 0, width * pixelSize, height * pixelSize, 0, 0, width, height);
+                ctx.drawImage(pixelatedImage, 0, 0, width / (8 * pixelationLevel), height / (8 * pixelationLevel), 0, 0, width, height);
             }
         }
     }
@@ -46,7 +47,7 @@ function handleImage() {
     reader.readAsDataURL(file);
 }
 
-// Function to update the pixelation value display
-function updatePixelationValue(slider) {
-    document.getElementById('sliderValue').innerText = slider.value;
-}
+// Event to update slider value display when changed
+document.getElementById('pixelationSlider').addEventListener('input', function() {
+    document.getElementById('sliderValue').textContent = this.value;
+});
