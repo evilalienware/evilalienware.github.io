@@ -3,21 +3,51 @@ let globalImage; // Store the loaded image globally so we can access it on slide
 function handleImage() {
     let input = document.getElementById('imageInput');
     let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
 
     let file = input.files[0];
     let reader = new FileReader();
 
     reader.onload = function(e) {
-        globalImage = new Image();
-        globalImage.src = e.target.result;
+        let img = new Image();
+        img.src = e.target.result;
 
-        globalImage.onload = function() {
-            processImage(); // Process the image when it's loaded
+        img.onload = function() {
+            const maxWidth = 1280; // Set the max width for the image
+            const maxHeight = 720; // Set the max height for the image
+
+            let width = img.width;
+            let height = img.height;
+
+            // Check if the image size exceeds the set dimensions and scale down proportionally
+            if (width > maxWidth) {
+                const ratio = maxWidth / width; // calculate ratio to scale image
+                height *= ratio;
+                width *= ratio;
+            }
+
+            if (height > maxHeight) {
+                const ratio = maxHeight / height; // calculate ratio to scale image
+                width *= ratio;
+                height *= ratio;
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+
+            // Draw and pixelate the image
+            ctx.drawImage(img, 0, 0, width, height); // Draw the full-sized image
+            let pixelatedImage = new Image();
+            pixelatedImage.src = canvas.toDataURL();
+            pixelatedImage.onload = function() {
+                ctx.drawImage(pixelatedImage, 0, 0, width, height);
+            }
         }
     }
 
     reader.readAsDataURL(file);
 }
+
 
 function processImage() {
     let canvas = document.getElementById('canvas');
@@ -45,14 +75,10 @@ function processImage() {
     canvas.height = height;
 
     ctx.drawImage(globalImage, 0, 0, width / (8 * pixelationLevel), height / (8 * pixelationLevel));
-
-    // Apply pixelation effect
-    for(let y = 0; y < height; y += pixelationLevel) {
-        for(let x = 0; x < width; x += pixelationLevel) {
-            const pixelColor = ctx.getImageData(x, y, 1, 1).data;
-            ctx.fillStyle = `rgba(${pixelColor[0]},${pixelColor[1]},${pixelColor[2]},${pixelColor[3] / 255})`;
-            ctx.fillRect(x, y, pixelationLevel, pixelationLevel);
-        }
+    let pixelatedImage = new Image();
+    pixelatedImage.src = canvas.toDataURL();
+    pixelatedImage.onload = function() {
+        ctx.drawImage(pixelatedImage, 0, 0, width / (8 * pixelationLevel), height / (8 * pixelationLevel), 0, 0, width, height);
     }
 }
 
