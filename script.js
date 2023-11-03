@@ -11,13 +11,12 @@ function handleImage() {
         img.src = e.target.result;
 
         img.onload = function() {
-            const maxWidth = 1280; // Set the max width for the image
-            const maxHeight = 720; // Set the max height for the image
+            const maxWidth = 1280; 
+            const maxHeight = 720; 
 
             let width = img.width;
             let height = img.height;
 
-            // Check if the image size exceeds the set dimensions
             if (width > maxWidth) {
                 height = (maxWidth / width) * height;
                 width = maxWidth;
@@ -31,7 +30,6 @@ function handleImage() {
             canvas.width = width;
             canvas.height = height;
 
-            // Draw and pixelate the image
             ctx.drawImage(img, 0, 0, width / 8, height / 8);
             let pixelatedImage = new Image();
             pixelatedImage.src = canvas.toDataURL();
