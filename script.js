@@ -1,3 +1,5 @@
+// script.js
+
 function handleImage() {
     let input = document.getElementById('imageInput');
     let canvas = document.getElementById('canvas');
@@ -12,7 +14,7 @@ function handleImage() {
 
         img.onload = function() {
             // Reduce the image size for more pronounced pixelation
-            let reducedWidth = img.width / 8;  
+            let reducedWidth = img.width / 8;
             let reducedHeight = img.height / 8;
 
             canvas.width = img.width;
