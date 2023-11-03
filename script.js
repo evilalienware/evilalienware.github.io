@@ -11,13 +11,12 @@ function handleImage() {
         img.src = e.target.result;
 
         img.onload = function() {
-            const maxWidth = 1280; // Set the max width for the image
-            const maxHeight = 720; // Set the max height for the image
+            const maxWidth = 1280;
+            const maxHeight = 720;
 
             let width = img.width;
             let height = img.height;
 
-            // Check if the image size exceeds the set dimensions
             if (width > maxWidth) {
                 height = (maxWidth / width) * height;
                 width = maxWidth;
@@ -31,15 +30,23 @@ function handleImage() {
             canvas.width = width;
             canvas.height = height;
 
-            // Draw and pixelate the image
-            ctx.drawImage(img, 0, 0, width / 8, height / 8);
+            // Get the pixelation level from the slider
+            let pixelation = document.getElementById('pixelation').value;
+            let pixelSize = (width / 1280) * (11 - pixelation); // Adjust pixelation based on image width and slider value
+
+            ctx.drawImage(img, 0, 0, width * pixelSize, height * pixelSize);
             let pixelatedImage = new Image();
             pixelatedImage.src = canvas.toDataURL();
             pixelatedImage.onload = function() {
-                ctx.drawImage(pixelatedImage, 0, 0, width / 8, height / 8, 0, 0, width, height);
+                ctx.drawImage(pixelatedImage, 0, 0, width * pixelSize, height * pixelSize, 0, 0, width, height);
             }
         }
     }
 
     reader.readAsDataURL(file);
+}
+
+// Function to update the pixelation value display
+function updatePixelationValue(slider) {
+    document.getElementById('sliderValue').innerText = slider.value;
 }
