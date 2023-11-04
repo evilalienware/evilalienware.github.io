@@ -46,7 +46,105 @@ h1 {
     margin-top: 10px;
 }
 
+/* Styles for the slider track */
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  background: transparent; /* Make track transparent */
+  border-radius: 5px;
+  border: 2px dashed #007BFF; /* Dashed border similar to button */
+  box-shadow: inset 0 0 5px rgba(0,123,255,0.5); /* Soft glow effect */
+}
+
+/* Styles for the slider thumb */
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 18px; /* Oval height */
+  width: 36px; /* Oval width */
+  background: #333; /* Thumb color */
+  cursor: pointer;
+  border-radius: 50px; /* Larger value for a pill shape */
+  border: none; /* No border for the thumb */
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* For Firefox */
+input[type=range]::-moz-range-track {
+  background: transparent;
+  border-radius: 5px;
+  border: 2px dashed #007BFF;
+}
+
+input[type=range]::-moz-range-thumb {
+  height: 18px;
+  width: 36px;
+  background: #333;
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+/* For IE */
+input[type=range]::-ms-track {
+  background: transparent;
+  border-radius: 5px;
+  border: 2px dashed #007BFF;
+  color: transparent; /* Required to prevent default color */
+  height: 8px; /* Needed to match the track height */
+}
+
+input[type=range]::-ms-thumb {
+  height: 18px;
+  width: 36px;
+  background: #333;
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+/* Additional styling to ensure the slider looks good */
+.pixelation-control label {
+  display: block;
+  color: #333; /* Text color */
+  margin-bottom: 10px;
+  text-align: center; /* Center the label text */
+}
+
 .slider-section {
+  margin: 20px 0; /* Spacing around the slider */
+}
+
+
+#downloadBtn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-family: Arial, sans-serif; /* Adjust the font-family to match your website's design */
+    color: #00aaff; /* Adjust the text color to match your website's design */
+    background-color: #ffffff; /* White background */
+    border: 2px dashed #00aaff; /* Dashed border style like the upload section */
+    border-radius: 5px; /* Slightly rounded corners for a modern look */
+    cursor: pointer;
+    text-decoration: none; /* Removes underline from text */
+    transition: background-color 0.3s;
+    margin-top: 20px; /* Adjust spacing as needed */
     text-align: center;
-    margin-top: 20px;
+}
+
+#downloadBtn:hover, #downloadBtn:focus {
+    background-color: #f0f8ff; /* Light blue background on hover for interactive feedback */
+    color: #00aaff; /* You can change color on hover if you like */
+    text-decoration: none; /* Continues to remove underline from links */
+    outline: none; /* Removes the outline on focus */
+}
+
+.pixelation-control {
+    margin-top: 20px; /* Adds spacing between the button and the slider */
+}
+
+/* Center the download button */
+#downloadBtnContainer {
+  display: flex; /* Use flexbox to center the button */
+  justify-content: center; /* Center button horizontally */
+  margin-top: 20px; /* Add some space at the top */
 }
