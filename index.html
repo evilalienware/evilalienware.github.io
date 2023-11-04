@@ -14,15 +14,21 @@
         <div class="upload-section">
             <label for="imageInput" class="upload-label">
                 CLICK HERE TO UPLOAD<br>
-                <span class="file-types">Must Be PNG, JPG...</span>
+                <span class="file-types">Must Be .png, .jpg, .jpeg</span>
             </label>
             <input type="file" id="imageInput" accept=".png, .jpg, .jpeg" onchange="handleImage()" style="display: none;">
         </div>
         <canvas id="canvas" style="border: 1px solid #000; display: block; margin: 20px auto;"></canvas>
-        <div class="slider-section">
-            Pixelation Level: <span id="sliderValue">1</span>
-            <input type="range" id="pixelationSlider" min="1" max="5" value="1" style="width: 100%;">
-        </div>
+<div class="slider-section">
+    <div id="downloadBtnContainer">
+  <button id="downloadBtn">Download Pixelified Image</button>
+</div>
+    <div class="pixelation-control">
+        Pixelation Level: <span id="sliderValue">1</span>
+        <input type="range" id="pixelationSlider" min="0" max="5" value="0" style="width: 100%;">
+    </div>
+</div>
+
     </div>
 
     <script src="script.js"></script>
